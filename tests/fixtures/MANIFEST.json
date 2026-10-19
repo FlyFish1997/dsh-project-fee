@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-10-18T17:18:56.573Z",
+  "note": "全部自造 fixture，供独立验证的否证复现；源语料由 harness/make-synthetic-corpus.mjs 生成，**不含任何真实会话内容**",
+  "source": {
+    "kind": "synthetic",
+    "generator": "harness/make-synthetic-corpus.mjs",
+    "seed": 20260914,
+    "path": "tests/verify-independent/fixtures/synthetic-home/sessions/--D-work-synthetic-corpus--/session-00000000-0000-4000-8000-0000000c0a1e/session.v3.jsonl.zstd",
+    "rawBytes": 1644309,
+    "frames": 880,
+    "decodedBytes": 7240369,
+    "note": "自造多帧语料；不使用 $DSH_HOME/sessions 中的真实日志"
+  },
+  "fixtures": [
+    {
+      "file": "two-frame.jsonl.zstd",
+      "bytes": 226,
+      "note": "2 frames, distinct payloads"
+    },
+    {
+      "file": "truncated.jsonl.zstd",
+      "bytes": 986585,
+      "note": "truncated 60% of 1644309B synthetic corpus"
+    },
+    {
+      "file": "corrupt-frame.jsonl.zstd",
+      "bytes": 1644309,
+      "note": "corrupted byte range 3534..3550 inside frame#2 (frames total 880)"
+    },
+    {
+      "file": "truncated-mid-frame.jsonl.zstd",
+      "bytes": 4669,
+      "note": "cut 4669B inside frame#3 (deterministic mid-frame truncation)"
+    },
+    {
+      "file": "non-jsonl.jsonl.zstd",
+      "bytes": 62,
+      "note": "valid zstd, 3 of 4 lines not valid JSON"
+    },
+    {
+      "file": "future-time.jsonl.zstd",
+      "bytes": 311,
+      "note": "record time = now + 30d (2026-11-17T17:18:56.569Z)"
+    },
+    {
+      "file": "empty-workspace",
+      "bytes": 0,
+      "note": "directory with no session logs"
+    },
+    {
+      "file": "boundary-peak-valley.jsonl.zstd",
+      "bytes": 397,
+      "note": "8 records at Beijing workday switch points, 1M miss tokens each"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+# dsh-workspace-fee —— 宿主行补丁（bundle patch）
+#
+# 由 package.json 的 `dsh.bundle.patch` 指向；作为一层 overlay 应用到 profile 的
+# 插件树，唯一的职责是**把 dsh-workspace-fee 这一行挂起来**。
+#
+# 名字解析：`name: dsh-workspace-fee` 要求 profile 能解析到这个包——放进 profile 的
+# node_modules、pnpm/npm link，或在 profile 的 cordis.yml 里用路径形式引用
+# （见 README「安装到 profile」一节）。
+#
+# 下面每个 config 字段都是**可选**的，省略即用内置默认；写进去的值优先级最低
+# （低于 settings 与配置文件）：
+#   home          字符串  DSH home（优先于 $DSH_HOME）
+#   sessionsRoot  字符串  会话日志根（优先于 $DSH_WORKSPACE_FEE_SESSIONS）
+#   dataDir       字符串  账本数据目录（优先于 $DSH_WORKSPACE_FEE_DATA）
+#   pricing       对象    价格表覆盖（families / models / peakWindows / versions / …）
+#   alerts        对象    预警线覆盖（{defaultLimit, warnRatio, workspaces}）
+#   persistCache  布尔    是否把解析缓存写盘（默认 true）
+#   flushSeconds  数字    缓存落盘间隔秒数（默认 60，0 = 不定时落盘）
+
+- insert:
+    - id: workspace-fee
+      name: dsh-workspace-fee
+      # config:
+      #   # 例：把数据目录固定到工作区内，便于观察与自测
+      #   dataDir: '<仓库路径>/.dsh-workspace-fee'
+      #   alerts:
+      #     defaultLimit: 5        # 每个工作区默认日预警线（元）
+      #     warnRatio: 0.8

@@ -1,0 +1,30 @@
+# ── 临时目录（测试夹具、探针输出、本地缓存） ──────────────────────────
+.tmp/
+.tmp-*
+__scratch/
+
+# ── 验证装置的运行期产物 ──────────────────────────────────────────────
+# .tmp-home 是各检查用的「测试用 DSH home」：它把真实会话日志复制进去做隔离，
+# 因此**含真实会话内容**。绝不允许进入交付树或版本控制。
+tests/verify-independent/.tmp-home/
+.tmp-home/
+# .logs 是各次运行的原始输出留档（含路径与会话标识）
+tests/verify-independent/.logs/
+# 各检查在 DSH_TEST_TMP 重定向时写出的日志目录
+verify-independent-logs/
+
+# ── 可重生成的报告（可能含真实工作区路径与会话标识）──────────────────
+reports/
+
+# ── 依赖（本插件零运行时依赖） ────────────────────────────────────────
+node_modules/
+# 测试替身需要保持 node_modules 形状（host-tools.test.mjs 直接 import），必须随仓库提交
+!tests/fixtures/toolkit/node_modules/
+!tests/fixtures/toolkit/node_modules/**
+
+# ── 日志 ──────────────────────────────────────────────────────────────
+*.log
+
+# ── 编辑器 ────────────────────────────────────────────────────────────
+.vscode/
+.idea/
